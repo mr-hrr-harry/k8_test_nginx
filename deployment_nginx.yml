@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-test-deployment
+  labels:
+    tier: proxy
+    part: backend
+    type: deployment
+spec:
+  replicas: 2
+  template:
+    metadata:
+      name: nginx-test-pod
+      labels:
+        tier: proxy
+        part: backend
+        type: pod
+    spec:
+      containers:
+        - name: nginx-cont
+          image: nginx
+          ports:
+            - containerPort: 80
+  selector:
+    matchLabels:
+        tier: proxy
+        part: backend
+        type: pod
