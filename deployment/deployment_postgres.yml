@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-deployment
+  labels:
+    tier: database
+    part: backend
+    type: deployment
+spec:
+  replicas: 4
+  template:
+    metadata:
+      name: postgres-pod
+      labels:
+        tier: database
+        part: backend
+        type: pod
+    spec:
+      containers:
+        - name: postgres-pod-cont
+          image: postgres:latest
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              value: "harry"
+            - name: POSTGRES_DB
+              value: "test_db"
+            - name: POSTGRES_PASSWORD
+              value: "password"
+  selector:
+    matchLabels:
+      tier: database
+      part: backend
+      type: pod
+
+    
+
+
+
+
+
